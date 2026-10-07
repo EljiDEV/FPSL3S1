@@ -36,7 +36,7 @@ public class VacuumProto : MonoBehaviour
 
     void Suck()
     {
-        if (2 >= 1)
+        if (StoredObjects.Count >= Capacity) return;
         {
             Collider[]  hits = Physics.OverlapSphere(SuctionPoint.position, reach, Suckable);
             foreach (Collider hit in hits)
@@ -52,14 +52,14 @@ public class VacuumProto : MonoBehaviour
                     }
                     else
                     {
-                        Absorb();
+                        Absorb(Collider.);
                     }
                 }
             }
         }
     }
 
-    void Absorb()
+    void Absorb(GameObject target)
     {
         
     }
