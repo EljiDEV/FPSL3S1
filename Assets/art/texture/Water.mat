@@ -38,16 +38,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Emissive: 46.21
+    - _Emissive: 30.8
     - _EmissiveSize: 0.86
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Size: 3.5
+    - _Size: 7.06
     - _Speed: 0.5
     - _Speed2: 0.3
-    - _Strength: 0.79
+    - _Strength: 96.58
     m_Colors:
-    - _Color: {r: 0.21247002, g: 0.5283019, b: 0.14702737, a: 0.64705884}
+    - _Color: {r: 0.36181042, g: 0.14509797, b: 0.5294118, a: 0.19215687}
     - _Direction: {r: 1, g: 0.1, b: 0, a: 0}
     - _Direction2: {r: -1, g: -1, b: 0, a: 0}
   m_BuildTextureStacks: []
