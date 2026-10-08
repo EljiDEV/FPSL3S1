@@ -46,6 +46,7 @@ Material:
     - _Speed: 0.5
     - _Speed2: 0.3
     - _Strength: 96.58
+    - _displacementMult: 0
     m_Colors:
     - _Color: {r: 0.36181042, g: 0.14509797, b: 0.5294118, a: 0.19215687}
     - _Direction: {r: 1, g: 0.1, b: 0, a: 0}
