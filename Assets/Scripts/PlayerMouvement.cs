@@ -30,6 +30,7 @@ public class PlayerMouvement : MonoBehaviour
     {
         _grounded = Physics.Raycast(transform.position, Vector3.down, _playerHeight * 0.5f + 0.2f, _ground);
         GetInput();
+        
     }
 
     private void FixedUpdate()
@@ -54,7 +55,8 @@ public class PlayerMouvement : MonoBehaviour
     private void MovePlayer()
     {
         _moveDirection = _orientation.forward * _verticalInput + _orientation.right * _horizontalInput;
-        _rb.AddForce(_moveDirection.normalized * _moveSpeed * 10f, ForceMode.Force);
+        Vector3 targetVelocity = _moveDirection.normalized * _moveSpeed;
+        _rb.linearVelocity = new Vector3(targetVelocity.x, _rb.linearVelocity.y, targetVelocity.z);
     }
     
     private void Jump()
