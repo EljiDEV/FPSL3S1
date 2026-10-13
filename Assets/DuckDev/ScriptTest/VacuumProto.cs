@@ -18,7 +18,6 @@ public class VacuumProto : MonoBehaviour
 
     private GameObject heldBiteObject = null;
     private Rigidbody heldBiteRb = null;
-    private Quaternion heldBiteRotationOffset;
     private Collider[] heldBiteColliders = null;
 
     [Header("Tir")]
@@ -48,7 +47,7 @@ public class VacuumProto : MonoBehaviour
         if (heldBiteObject != null)
         {
             heldBiteObject.transform.position = suctionPoint.position;
-            heldBiteObject.transform.rotation = suctionPoint.rotation * heldBiteRotationOffset;
+            heldBiteObject.transform.rotation = suctionPoint.rotation;
 
             if (Input.GetMouseButtonDown(0) && Time.time >= nextActionTime)
             {
@@ -129,8 +128,6 @@ public class VacuumProto : MonoBehaviour
         heldBiteRb.linearVelocity = Vector3.zero;
         heldBiteRb.angularVelocity = Vector3.zero;
         heldBiteRb.isKinematic = true;
-
-        heldBiteRotationOffset = Quaternion.Inverse(suctionPoint.rotation) * target.transform.rotation;
 
         heldBiteColliders = target.GetComponentsInChildren<Collider>();
         foreach (Collider col in heldBiteColliders)
