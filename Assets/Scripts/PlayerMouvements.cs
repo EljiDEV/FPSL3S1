@@ -12,6 +12,7 @@ public class PlayerMouvements : MonoBehaviour
     [SerializeField] private float _gravity;
     private float _verticalVelocity;
     private bool _isSprinting;
+    private bool _canJump;
     
     private float _horizontalInput;
     private float _verticalInput;
@@ -22,12 +23,20 @@ public class PlayerMouvements : MonoBehaviour
     void Start()
     {
         _characterController = GetComponent<CharacterController>();
+        _canJump = true;
     }
     
     void Update()
     {
         GetInput();
-        _verticalVelocity -= _gravity * Time.deltaTime;
+        if (_characterController.isGrounded && _canJump)
+        {
+            _verticalVelocity = 0;
+        }
+        else
+        {
+            _verticalVelocity -= _gravity * Time.deltaTime;
+        }
     }
 
     private void FixedUpdate()
@@ -40,7 +49,7 @@ public class PlayerMouvements : MonoBehaviour
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         _verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey(KeyCode.Space) && _characterController.isGrounded)
+        if (Input.GetKey(KeyCode.Space) && _characterController.isGrounded && _canJump)
         {
             Jump();
         }
@@ -76,5 +85,12 @@ public class PlayerMouvements : MonoBehaviour
     private void Jump()
     {
         _verticalVelocity = Mathf.Sqrt(_jumpForce * 2f * _gravity);
+        _canJump = false;
+        Invoke(nameof(resetJump), 0.25f);
+    }
+    
+    private void resetJump()
+    {
+        _canJump = true;
     }
 }
