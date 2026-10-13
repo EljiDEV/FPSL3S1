@@ -710,6 +710,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMouvement
   _moveSpeed: 1
+  _jumpForce: 0
+  _jumpCooldown: 0
+  _playerHeight: 0
+  _ground:
+    serializedVersion: 2
+    m_Bits: 0
   _orientation: {fileID: 1619336568}
   _rb: {fileID: 281270110}
 --- !u!54 &281270110
