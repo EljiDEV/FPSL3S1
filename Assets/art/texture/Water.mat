@@ -56,7 +56,7 @@ Material:
     - _Strength: 800
     - _displacementMult: 0
     m_Colors:
-    - _Color: {r: 0.36181042, g: 0.14509797, b: 0.5294118, a: 0.19215687}
+    - _Color: {r: 0.128649, g: 0.5566038, b: 0.15921718, a: 0.19215687}
     - _Direction: {r: 1, g: 0.1, b: 0, a: 0}
     - _Direction2: {r: -1, g: -1, b: 0, a: 0}
   m_BuildTextureStacks: []
