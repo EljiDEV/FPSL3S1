@@ -16,13 +16,21 @@ public class VacuumProto : MonoBehaviour
     public int capacity = 10;
     private Stack<GameObject> storedObjects = new Stack<GameObject>();
 
+    
     private GameObject heldBiteObject = null;
     private Rigidbody heldBiteRb = null;
     private Collider[] heldBiteColliders = null;
+    private Collider[] playerColliders = null;
+
+    
+    private bool originalUseGravity;
+    private float originalLinearDamping;
+    private float originalAngularDamping;
 
     [Header("Tir")]
     public Transform launchPoint;
     public float launchVelocity = 25f;
+    public float holdSpringForce = 15f;
 
     private int suckableLayerIndex;
     private int biteLayerIndex;
@@ -34,6 +42,9 @@ public class VacuumProto : MonoBehaviour
     {
         suckableLayerIndex = (int)Mathf.Log(suckableLayer.value, 2);
         biteLayerIndex = (int)Mathf.Log(biteLayer.value, 2);
+        
+        
+        playerColliders = GetComponentsInParent<Collider>();
     }
 
     void Update()
@@ -46,9 +57,6 @@ public class VacuumProto : MonoBehaviour
 
         if (heldBiteObject != null)
         {
-            heldBiteObject.transform.position = suctionPoint.position;
-            heldBiteObject.transform.rotation = suctionPoint.rotation;
-
             if (Input.GetMouseButtonDown(0) && Time.time >= nextActionTime)
             {
                 Shoot(0f);
@@ -61,6 +69,20 @@ public class VacuumProto : MonoBehaviour
             {
                 Suck();
             }
+        }
+    }
+
+    
+    void FixedUpdate()
+    {
+        if (heldBiteObject != null && heldBiteRb != null)
+        {
+            
+            Vector3 direction = suctionPoint.position - heldBiteRb.position;
+            heldBiteRb.linearVelocity = direction * holdSpringForce;
+
+            
+            heldBiteRb.MoveRotation(Quaternion.identity);
         }
     }
 
@@ -125,14 +147,25 @@ public class VacuumProto : MonoBehaviour
         heldBiteObject = target;
         heldBiteRb = rb;
 
-        heldBiteRb.linearVelocity = Vector3.zero;
-        heldBiteRb.angularVelocity = Vector3.zero;
-        heldBiteRb.isKinematic = true;
+        
+        originalUseGravity = heldBiteRb.useGravity;
+        originalLinearDamping = heldBiteRb.linearDamping;
+        originalAngularDamping = heldBiteRb.angularDamping;
 
+        
+        heldBiteRb.isKinematic = false; 
+        heldBiteRb.useGravity = false;
+        heldBiteRb.linearDamping = 5f;
+        heldBiteRb.angularDamping = 5f;
+
+        
         heldBiteColliders = target.GetComponentsInChildren<Collider>();
         foreach (Collider col in heldBiteColliders)
         {
-            col.enabled = false;
+            foreach (Collider pCol in playerColliders)
+            {
+                if (col != null && pCol != null) Physics.IgnoreCollision(col, pCol, true);
+            }
         }
 
         nextActionTime = Time.time + actionCooldown;
@@ -144,18 +177,26 @@ public class VacuumProto : MonoBehaviour
 
         if (heldBiteObject != null && heldBiteRb != null)
         {
-            heldBiteObject.transform.position = launchPoint.position; 
             
             if (heldBiteColliders != null)
             {
                 foreach (Collider col in heldBiteColliders)
                 {
-                    if (col != null) col.enabled = true;
+                    foreach (Collider pCol in playerColliders)
+                    {
+                        if (col != null && pCol != null) Physics.IgnoreCollision(col, pCol, false);
+                    }
                 }
                 heldBiteColliders = null;
             }
 
-            heldBiteRb.isKinematic = false;
+            
+            heldBiteRb.useGravity = originalUseGravity;
+            heldBiteRb.linearDamping = originalLinearDamping;
+            heldBiteRb.angularDamping = originalAngularDamping;
+
+            
+            
             heldBiteRb.linearVelocity = Vector3.zero;
             
             float finalForce = appliedForce > 0f ? appliedForce : 2f;
