@@ -13,6 +13,7 @@ public class PlayerMouvements : MonoBehaviour
     private float _verticalVelocity;
     private bool _isSprinting;
     private bool _canJump;
+    private bool _inAir;
     
     private float _horizontalInput;
     private float _verticalInput;
@@ -29,14 +30,7 @@ public class PlayerMouvements : MonoBehaviour
     void Update()
     {
         GetInput();
-        if (_characterController.isGrounded && _canJump)
-        {
-            _verticalVelocity = 0;
-        }
-        else
-        {
-            _verticalVelocity -= _gravity * Time.deltaTime;
-        }
+        Gravity();
     }
 
     private void FixedUpdate()
@@ -54,13 +48,17 @@ public class PlayerMouvements : MonoBehaviour
             Jump();
         }
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && _inAir == false)
         {
             _isSprinting = true;
         }
         else
         {
-            _isSprinting = false;
+            if (_inAir == false)
+            {
+                _isSprinting = false;
+            }
+            
         }
     }
     
@@ -92,5 +90,19 @@ public class PlayerMouvements : MonoBehaviour
     private void resetJump()
     {
         _canJump = true;
+    }
+
+    private void Gravity()
+    {
+        if (_characterController.isGrounded && _canJump)
+        {
+            _verticalVelocity = 0;
+            _inAir = false;
+        }
+        else
+        {
+            _inAir = true;
+            _verticalVelocity -= _gravity * Time.deltaTime;
+        }
     }
 }
