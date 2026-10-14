@@ -143,7 +143,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9184842035757579151}
   - {fileID: 2313202312418394173}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -172,13 +171,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3895965646486517835}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2243149932202994233}
-  m_Father: {fileID: 2884869313553675719}
+  m_Father: {fileID: 2313202312418394173}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3984070859320071060
 MonoBehaviour:
@@ -228,6 +227,7 @@ Transform:
   - {fileID: 5163281006577277852}
   - {fileID: 6335326906195026500}
   - {fileID: 4637393836269991890}
+  - {fileID: 9184842035757579151}
   m_Father: {fileID: 2884869313553675719}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &7104459345669214971
@@ -270,6 +270,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMouvement
   _moveSpeed: 1
+  _jumpForce: 0
+  _jumpCooldown: 0
+  _playerHeight: 0
+  _ground:
+    serializedVersion: 2
+    m_Bits: 0
   _orientation: {fileID: 6335326906195026500}
   _rb: {fileID: 7104459345669214971}
 --- !u!114 &5035416274938513404
