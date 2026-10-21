@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.Controls;
 
@@ -10,10 +12,13 @@ public class PlayerMouvements : MonoBehaviour
     [SerializeField] private float _sprintSpeed;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _gravity;
+    [SerializeField] private float _coyotteTime;
     private float _verticalVelocity;
     private bool _isSprinting;
     private bool _canJump;
     private bool _inAir;
+
+    private bool _hasRun;
     
     private float _horizontalInput;
     private float _verticalInput;
@@ -43,7 +48,7 @@ public class PlayerMouvements : MonoBehaviour
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         _verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey(KeyCode.Space) && _characterController.isGrounded && _canJump)
+        if (Input.GetKey(KeyCode.Space) && _canJump && _inAir == false)
         {
             Jump();
         }
@@ -84,10 +89,11 @@ public class PlayerMouvements : MonoBehaviour
     {
         _verticalVelocity = Mathf.Sqrt(_jumpForce * 2f * _gravity);
         _canJump = false;
-        Invoke(nameof(resetJump), 0.25f);
+        _inAir = true;
+        Invoke(nameof(ResetJump), 0.25f);
     }
     
-    private void resetJump()
+    private void ResetJump()
     {
         _canJump = true;
     }
@@ -96,13 +102,27 @@ public class PlayerMouvements : MonoBehaviour
     {
         if (_characterController.isGrounded && _canJump)
         {
-            _verticalVelocity = 0;
+            _verticalVelocity = -0.2f;
             _inAir = false;
         }
         else
         {
-            _inAir = true;
             _verticalVelocity -= _gravity * Time.deltaTime;
+            if (_hasRun == false && _inAir == false)
+            {
+                StartCoroutine(CoyotteTime());
+                _hasRun = true;
+            }
         }
+    }
+
+    IEnumerator CoyotteTime()
+    {
+        yield return new WaitForSeconds(_coyotteTime);
+        if (_inAir == false)
+        {
+            _inAir = true;
+        }
+        _hasRun = false;
     }
 }
