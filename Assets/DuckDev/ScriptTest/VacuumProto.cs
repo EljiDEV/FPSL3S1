@@ -49,7 +49,7 @@ public class VacuumProto : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
             Shoot(launchVelocity);
             return;
@@ -57,7 +57,7 @@ public class VacuumProto : MonoBehaviour
 
         if (heldBiteObject != null)
         {
-            if (Input.GetMouseButtonDown(0) && Time.time >= nextActionTime)
+            if (Input.GetMouseButtonDown(1) && Time.time >= nextActionTime)
             {
                 Shoot(0f);
                 nextActionTime = Time.time + actionCooldown;
@@ -65,7 +65,7 @@ public class VacuumProto : MonoBehaviour
         }
         else
         {
-            if (Input.GetMouseButton(0) && Time.time >= nextActionTime)
+            if (Input.GetMouseButton(1) && Time.time >= nextActionTime)
             {
                 Suck();
             }
