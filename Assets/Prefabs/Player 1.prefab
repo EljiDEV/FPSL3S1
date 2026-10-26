@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5833245114918139149}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Suck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8176422667953089575}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Launch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,7 +77,7 @@ GameObject:
   - component: {fileID: 7868708150314201163}
   - component: {fileID: 226712037594249591}
   - component: {fileID: 209427618821643720}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,6 +223,7 @@ MonoBehaviour:
   _sprintSpeed: 2
   _jumpForce: 2
   _gravity: 8
+  _coyotteTime: 0
   _orientation: {fileID: 5048867481762001611}
 --- !u!114 &209427618821643720
 MonoBehaviour:
@@ -242,6 +243,9 @@ MonoBehaviour:
   biteLayer:
     serializedVersion: 2
     m_Bits: 256
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 640
   reach: 30
   angle: 45
   absorbDistance: 1.5
@@ -250,6 +254,9 @@ MonoBehaviour:
   capacity: 10
   launchPoint: {fileID: 8176422667953089575}
   launchVelocity: 25
+  holdSpringForce: 15
+  maxHoldSpeed: 25
+  keepInitialRelativeRotation: 1
 --- !u!1 &6087319645218472603
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,7 +271,7 @@ GameObject:
   - component: {fileID: 7954769320109373}
   - component: {fileID: 7203669375728327215}
   - component: {fileID: 706307972144329426}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +435,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1504765397747519445}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CameraPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -459,7 +466,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5048867481762001611}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Orientation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
