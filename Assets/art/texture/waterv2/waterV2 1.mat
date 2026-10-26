@@ -44,7 +44,7 @@ Material:
     - _normalsStrengh: 0.12
     - _smoothness: 1.4
     - _voronoiPower: 2.66
-    - _voronoiScale: 4.22
+    - _voronoiScale: 0.58
     - _voronoiagitation: 1
     m_Colors:
     - _BaseColor: {r: 0.22547317, g: 0.8113208, b: 0.095674604, a: 1}
