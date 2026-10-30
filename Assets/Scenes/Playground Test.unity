@@ -1678,6 +1678,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 209427618821643720, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: holdSpringForce
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 209427618821643720, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: keepInitialRelativeRotation
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 226712037594249591, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
       propertyPath: _gravity
       value: 10
