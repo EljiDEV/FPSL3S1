@@ -30,6 +30,7 @@ public class PlayerMouvements : MonoBehaviour
     {
         _characterController = GetComponent<CharacterController>();
         _canJump = true;
+        Cursor.lockState = CursorLockMode.Confined;
     }
     
     void Update()
