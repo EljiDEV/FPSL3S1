@@ -63,22 +63,15 @@ public class PlayerMouvements : MonoBehaviour
             {
                 _isSprinting = false;
             }
-            
         }
     }
     
     private void MovePlayer()
     {
         _moveDirection = _orientation.forward * _verticalInput + _orientation.right * _horizontalInput;
-        Vector3 _targetVelocity = _moveDirection.normalized * _moveSpeed;
-        if (_isSprinting)
-        {
-            _targetVelocity = _moveDirection.normalized * (_moveSpeed * _sprintSpeed);
-        }
-        else
-        {
-            _targetVelocity = _moveDirection.normalized * _moveSpeed;
-        }
+        Vector3 _targetVelocity = _isSprinting
+            ? _moveDirection.normalized * (_moveSpeed * _sprintSpeed)
+            : _moveDirection.normalized * _moveSpeed;
         
         _targetVelocity.y = _verticalVelocity;
         
