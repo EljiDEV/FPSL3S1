@@ -162,6 +162,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Petite_Cagette (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8359535527250717135, guid: 1baf21a3b956102418b66b69e4b5eb2b, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 9171820239912514421, guid: 1baf21a3b956102418b66b69e4b5eb2b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.4700775
@@ -533,6 +537,10 @@ PrefabInstance:
     - target: {fileID: 8359535527250717135, guid: 1baf21a3b956102418b66b69e4b5eb2b, type: 3}
       propertyPath: m_Name
       value: Petite_Cagette (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8359535527250717135, guid: 1baf21a3b956102418b66b69e4b5eb2b, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 9171820239912514421, guid: 1baf21a3b956102418b66b69e4b5eb2b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4393,6 +4401,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Petite_Cagette (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8359535527250717135, guid: 1baf21a3b956102418b66b69e4b5eb2b, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 9171820239912514421, guid: 1baf21a3b956102418b66b69e4b5eb2b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.24415207
@@ -8163,6 +8175,10 @@ PrefabInstance:
     - target: {fileID: 8359535527250717135, guid: 1baf21a3b956102418b66b69e4b5eb2b, type: 3}
       propertyPath: m_Name
       value: Petite_Cagette (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8359535527250717135, guid: 1baf21a3b956102418b66b69e4b5eb2b, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 9171820239912514421, guid: 1baf21a3b956102418b66b69e4b5eb2b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12401,6 +12417,10 @@ PrefabInstance:
     - target: {fileID: 8359535527250717135, guid: 1baf21a3b956102418b66b69e4b5eb2b, type: 3}
       propertyPath: m_Name
       value: Petite_Cagette
+      objectReference: {fileID: 0}
+    - target: {fileID: 8359535527250717135, guid: 1baf21a3b956102418b66b69e4b5eb2b, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 9171820239912514421, guid: 1baf21a3b956102418b66b69e4b5eb2b, type: 3}
       propertyPath: m_LocalPosition.x
