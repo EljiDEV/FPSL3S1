@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.UI;
 
 public class PlayerMouvements : MonoBehaviour
 {
-    private CharacterController _characterController;
+    [Header("Data")] 
+    [SerializeField] private float _damageTakenQuantity;
     
     [Header("Movements")]
     [SerializeField] private float _moveSpeed;
@@ -13,18 +15,26 @@ public class PlayerMouvements : MonoBehaviour
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _gravity;
     [SerializeField] private float _coyotteTime;
-    private float _verticalVelocity;
-    private bool _isSprinting;
-    private bool _canJump;
-    private bool _inAir;
 
-    private bool _hasRun;
+    [Header("LifeDrawing")]
+    [SerializeField] private GameObject _damageUI;
+    
+    [Header("Other Settings")]
+    [SerializeField] private Transform _orientation;
+    
+    private float _verticalVelocity;
     
     private float _horizontalInput;
     private float _verticalInput;
+    
+    private bool _isSprinting;
+    private bool _canJump;
+    private bool _inAir;
+    private bool _hasRun;
+    
+    private CharacterController _characterController;
 
     private Vector3 _moveDirection;
-    [SerializeField] private Transform _orientation;
     
     void Start()
     {
@@ -118,5 +128,19 @@ public class PlayerMouvements : MonoBehaviour
             _inAir = true;
         }
         _hasRun = false;
+    }
+    
+    public void TakeDamage(float DamageTaken)
+    {
+        for (int i = 0; i < _damageUI.transform.childCount; i++)
+        {
+            Color _color = _damageUI.transform.GetChild(i).gameObject.GetComponent<Image>().color;
+            _color.a += DamageTaken;
+            _damageUI.transform.GetChild(i).gameObject.GetComponent<Image>().color = _color;
+            if (_color.a >= 1)
+            {
+                Debug.Log("Mort");
+            }
+        }
     }
 }

@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BroomEnemi : MonoBehaviour
+public class BroomEnemy : MonoBehaviour
 {
     [Header("Basic Data")] 
     [SerializeField] private int _health;
@@ -53,6 +53,7 @@ public class BroomEnemi : MonoBehaviour
         if (other.gameObject == MainGame.Instance.Player)
         {
             _hitPlayer = true;
+            MainGame.Instance.Player.GetComponent<PlayerMouvements>().TakeDamage(_damage);
             _rigidbody.AddForce(transform.forward * -_pushBackForce);
             _navMeshAgent.SetDestination(transform.position);
             _coroutine = StartCoroutine(PushBack());
@@ -61,7 +62,8 @@ public class BroomEnemi : MonoBehaviour
     
     IEnumerator PushBack()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(_damageCooldown);
+        _navMeshAgent.SetDestination(transform.position);
         _hitPlayer = false;
     }
 }
