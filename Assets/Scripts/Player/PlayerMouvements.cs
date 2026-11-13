@@ -15,9 +15,13 @@ public class PlayerMouvements : MonoBehaviour
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _gravity;
     [SerializeField] private float _coyotteTime;
+    
+    [Header("Air & Ground Control")]
+    [SerializeField] private float _groundAcceleration;
+    [SerializeField] private float _airAcceleration;
 
     [Header("LifeDrawing")]
-    [SerializeField] private GameObject _damageUI;
+    public GameObject DamageUI;
     
     [Header("Other Settings")]
     [SerializeField] private Transform _orientation;
@@ -35,6 +39,7 @@ public class PlayerMouvements : MonoBehaviour
     private CharacterController _characterController;
 
     private Vector3 _moveDirection;
+    private Vector3 _currentHorizontalVelocity;
     
     void Start()
     {
@@ -80,11 +85,21 @@ public class PlayerMouvements : MonoBehaviour
     private void MovePlayer()
     {
         _moveDirection = _orientation.forward * _verticalInput + _orientation.right * _horizontalInput;
-        Vector3 _targetVelocity = _isSprinting
-            ? _moveDirection.normalized * (_moveSpeed * _sprintSpeed)
-            : _moveDirection.normalized * _moveSpeed;
         
-        _targetVelocity.y = _verticalVelocity;
+        float _targetSpeed = _isSprinting ? (_moveSpeed * _sprintSpeed) : _moveSpeed;
+        float acceleration = _inAir ? _airAcceleration : _groundAcceleration;
+        
+        Vector3 _targetHorizontalVelocity = _moveDirection * _targetSpeed;
+        
+        _currentHorizontalVelocity = Vector3.MoveTowards(
+            _currentHorizontalVelocity, 
+            _targetHorizontalVelocity, 
+            acceleration * Time.deltaTime);
+
+        Vector3 _targetVelocity = new Vector3(
+            _currentHorizontalVelocity.x, 
+            _verticalVelocity, 
+            _currentHorizontalVelocity.z);
         
         _characterController.Move(_targetVelocity * Time.deltaTime);
     }
@@ -132,11 +147,11 @@ public class PlayerMouvements : MonoBehaviour
     
     public void TakeDamage(float DamageTaken)
     {
-        for (int i = 0; i < _damageUI.transform.childCount; i++)
+        for (int i = 0; i < DamageUI.transform.childCount; i++)
         {
-            Color _color = _damageUI.transform.GetChild(i).gameObject.GetComponent<Image>().color;
+            Color _color = DamageUI.transform.GetChild(i).gameObject.GetComponent<Image>().color;
             _color.a += DamageTaken;
-            _damageUI.transform.GetChild(i).gameObject.GetComponent<Image>().color = _color;
+            DamageUI.transform.GetChild(i).gameObject.GetComponent<Image>().color = _color;
             if (_color.a >= 1)
             {
                 Debug.Log("Mort");

@@ -11,12 +11,12 @@ public class FlyingEnemy : MonoBehaviour
     [SerializeField] private float _shootDistance;
     [SerializeField] private GameObject _projectilePrefab;
     
-    [Header("Damage Data")]
-    [SerializeField] private float _damage;
+    [Header("Shoot Data")]
     [SerializeField] private float _shootCooldown;
     
     Rigidbody _rigidbody;
-    
+
+    GameObject _shootPosition;
     NavMeshAgent _navMeshAgent;
     Coroutine _coroutine;
     
@@ -29,6 +29,7 @@ public class FlyingEnemy : MonoBehaviour
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshAgent.speed = _speed;
         _canShoot = true;
+        _shootPosition = gameObject.transform.GetChild(0).gameObject;
     }
 
     void Update()
@@ -62,7 +63,16 @@ public class FlyingEnemy : MonoBehaviour
     IEnumerator ShootProjectile()
     {
         yield return new WaitForSeconds(_shootCooldown);
-        Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
+        Instantiate(_projectilePrefab, new Vector3(_shootPosition.transform.position.x,_shootPosition.transform.position.y,_shootPosition.transform.position.z), transform.rotation);
         _canShoot = true;
+    }
+    
+    public void TakeDamage(int _damage)
+    {
+        _health -= _damage;
+        if (_health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

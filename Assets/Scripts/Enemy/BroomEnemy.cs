@@ -54,16 +54,23 @@ public class BroomEnemy : MonoBehaviour
         {
             _hitPlayer = true;
             MainGame.Instance.Player.GetComponent<PlayerMouvements>().TakeDamage(_damage);
-            _rigidbody.AddForce(transform.forward * -_pushBackForce);
             _navMeshAgent.SetDestination(transform.position);
-            _coroutine = StartCoroutine(PushBack());
+            _coroutine = StartCoroutine(CoolDown());
         }
     }
     
-    IEnumerator PushBack()
+    IEnumerator CoolDown()
     {
         yield return new WaitForSeconds(_damageCooldown);
-        _navMeshAgent.SetDestination(transform.position);
         _hitPlayer = false;
+    }
+    
+    public void TakeDamage(int _damage)
+    {
+        _health -= _damage;
+        if (_health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
