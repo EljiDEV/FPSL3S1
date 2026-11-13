@@ -89,7 +89,7 @@ public class PlayerMouvements : MonoBehaviour
         float _targetSpeed = _isSprinting ? (_moveSpeed * _sprintSpeed) : _moveSpeed;
         float acceleration = _inAir ? _airAcceleration : _groundAcceleration;
         
-        Vector3 _targetHorizontalVelocity = _moveDirection * _targetSpeed;
+        Vector3 _targetHorizontalVelocity = _moveDirection.normalized * _targetSpeed;
         
         _currentHorizontalVelocity = Vector3.MoveTowards(
             _currentHorizontalVelocity, 
