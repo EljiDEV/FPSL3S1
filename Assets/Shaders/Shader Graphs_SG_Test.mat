@@ -37,10 +37,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Contrast: -0.22
-    - _Exposition: 4.17
-    - _LightScale: 2.08
-    - _PixelSize: 5
+    - _Contrast: 0.54
+    - _Exposition: 2.76
+    - _Float: 0
+    - _LightScale: 5
+    - _On: 1
+    - _PixelSize: 2.41
     - _Speed: 8
     m_Colors: []
   m_BuildTextureStacks: []
