@@ -10,6 +10,7 @@ public class BroomEnemy : MonoBehaviour
     [SerializeField] private int _health;
     [SerializeField] private float _speed;
     [SerializeField] private float _targetDistance;
+    [SerializeField] private float _damageDistance;
     
     [Header("Damage Data")]
     [SerializeField] private float _damage;
@@ -19,8 +20,6 @@ public class BroomEnemy : MonoBehaviour
     [SerializeField] private float _pushBackDistance;
     [SerializeField] private float _pushBackForce;
     
-    Rigidbody _rigidbody;
-    
     NavMeshAgent _navMeshAgent;
     Coroutine _coroutine;
     
@@ -29,7 +28,6 @@ public class BroomEnemy : MonoBehaviour
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshAgent.speed = _speed;
     }
@@ -42,20 +40,17 @@ public class BroomEnemy : MonoBehaviour
             _followPlayer = true;
         }
 
-        if (_followPlayer && _hitPlayer == false)
-        {
-            _navMeshAgent.SetDestination(MainGame.Instance.Player.transform.position);
-        }
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject == MainGame.Instance.Player)
+        if (_playerDistance <= _damageDistance && _hitPlayer == false)
         {
             _hitPlayer = true;
             MainGame.Instance.Player.GetComponent<PlayerMouvements>().TakeDamage(_damage);
-            _navMeshAgent.SetDestination(transform.position);
+            _navMeshAgent.isStopped = true;
             _coroutine = StartCoroutine(CoolDown());
+        }
+
+        if (_followPlayer && _hitPlayer == false)
+        {
+            _navMeshAgent.SetDestination(MainGame.Instance.Player.transform.position);
         }
     }
     
@@ -63,6 +58,7 @@ public class BroomEnemy : MonoBehaviour
     {
         yield return new WaitForSeconds(_damageCooldown);
         _hitPlayer = false;
+        _navMeshAgent.isStopped = false;
     }
     
     public void TakeDamage(int _damage)

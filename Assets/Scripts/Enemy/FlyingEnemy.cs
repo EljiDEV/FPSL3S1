@@ -13,8 +13,6 @@ public class FlyingEnemy : MonoBehaviour
     
     [Header("Shoot Data")]
     [SerializeField] private float _shootCooldown;
-    
-    Rigidbody _rigidbody;
 
     GameObject _shootPosition;
     NavMeshAgent _navMeshAgent;
@@ -25,7 +23,6 @@ public class FlyingEnemy : MonoBehaviour
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshAgent.speed = _speed;
         _canShoot = true;
@@ -45,8 +42,12 @@ public class FlyingEnemy : MonoBehaviour
             _navMeshAgent.SetDestination(MainGame.Instance.Player.transform.position);
             if (_playerDistance <= _shootDistance)
             {
-                _navMeshAgent.SetDestination(transform.position);
+                _navMeshAgent.isStopped = true;
                 Shoot();
+            }
+            else
+            {
+                _navMeshAgent.isStopped = false;
             }
         }
     }
