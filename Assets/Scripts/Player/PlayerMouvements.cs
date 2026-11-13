@@ -20,7 +20,9 @@ public class PlayerMouvements : MonoBehaviour
     [SerializeField] private float _groundAcceleration;
     [SerializeField] private float _airAcceleration;
 
-    [Header("LifeDrawing")]
+    [Header("Life Data")]
+    [SerializeField] private float _lifeHealAmount;
+    [SerializeField] private float _lifeHealTime;
     public GameObject DamageUI;
     
     [Header("Other Settings")]
@@ -34,6 +36,9 @@ public class PlayerMouvements : MonoBehaviour
     private bool _isSprinting;
     private bool _canJump;
     private bool _inAir;
+
+    private bool _hasHeal;
+    private bool _isDead;
     private bool _hasRun;
     
     private CharacterController _characterController;
@@ -57,6 +62,7 @@ public class PlayerMouvements : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+        SearchToHeal();
     }
     
     private void GetInput()
@@ -163,7 +169,37 @@ public class PlayerMouvements : MonoBehaviour
             DamageUI.transform.GetChild(i).gameObject.GetComponent<Image>().color = _color;
             if (_color.a >= 1)
             {
+                _isDead = true;
                 Debug.Log("Mort");
+            }
+        }
+    }
+
+    private void SearchToHeal()
+    {
+        Color _color = DamageUI.transform.GetChild(0).gameObject.GetComponent<Image>().color;
+        if (_color.a > 0 && _hasHeal == false && _isDead == false)
+        {
+            StartCoroutine(HealPlayer());
+            _hasHeal = true;
+        }
+    }
+
+    IEnumerator HealPlayer()
+    {
+        yield return new WaitForSeconds(_lifeHealTime);
+        if (_isDead == false)
+        {
+            for (int i = 0; i < DamageUI.transform.childCount; i++)
+            {
+                Color _color = DamageUI.transform.GetChild(i).gameObject.GetComponent<Image>().color;
+                if (_color.a >= 0)
+                {
+                    _color.a -= _lifeHealAmount;
+                }
+                DamageUI.transform.GetChild(i).gameObject.GetComponent<Image>().color = _color;
+            
+                _hasHeal = false;
             }
         }
     }

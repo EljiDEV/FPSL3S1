@@ -1275,6 +1275,14 @@ PrefabInstance:
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 226712037594249591, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: _lifeHealTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 226712037594249591, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: _lifeHealAmount
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 226712037594249591, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
       propertyPath: _airAcceleration
       value: 20
       objectReference: {fileID: 0}
