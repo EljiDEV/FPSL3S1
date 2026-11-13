@@ -101,6 +101,14 @@ public class PlayerMouvements : MonoBehaviour
             _verticalVelocity, 
             _currentHorizontalVelocity.z);
         
+        if ((_characterController.collisionFlags & CollisionFlags.Above) != 0)
+        {
+            if (_verticalVelocity > 0)
+            {
+                _verticalVelocity = -0f; 
+            }
+        }
+        
         _characterController.Move(_targetVelocity * Time.deltaTime);
     }
 
@@ -124,6 +132,7 @@ public class PlayerMouvements : MonoBehaviour
             _verticalVelocity = -0.2f;
             _inAir = false;
         }
+        
         else
         {
             _verticalVelocity -= _gravity * Time.deltaTime;
