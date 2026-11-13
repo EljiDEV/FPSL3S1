@@ -37,8 +37,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _LightScale: 5
-    - _PixelSize: 3
+    - _Contrast: -0.22
+    - _Exposition: 4.17
+    - _LightScale: 2.08
+    - _PixelSize: 5
+    - _Speed: 8
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
