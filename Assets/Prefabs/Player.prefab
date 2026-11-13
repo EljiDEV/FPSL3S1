@@ -219,11 +219,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8def6a8c1bb2b54aa86caa3a358b9ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMouvements
+  _damageTakenQuantity: 0
   _moveSpeed: 2
   _sprintSpeed: 2
   _jumpForce: 2
   _gravity: 8
   _coyotteTime: 0
+  _groundAcceleration: 60
+  _airAcceleration: 20
+  DamageUI: {fileID: 0}
   _orientation: {fileID: 5048867481762001611}
 --- !u!114 &209427618821643720
 MonoBehaviour:
@@ -237,6 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e2bb44bd9adaeb4483529d5a9c5bc90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VacuumProto
+  playerRoot: {fileID: 0}
   suckableLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -246,6 +251,7 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 640
+  biteObjectsBlockSuction: 1
   reach: 30
   angle: 45
   absorbDistance: 1.5
@@ -257,6 +263,8 @@ MonoBehaviour:
   holdSpringForce: 15
   maxHoldSpeed: 25
   keepInitialRelativeRotation: 1
+  heldObjectAlpha: 0.5
+  customTransparentMaterial: {fileID: 0}
 --- !u!1 &6087319645218472603
 GameObject:
   m_ObjectHideFlags: 0
