@@ -42,6 +42,7 @@ public class FlyingEnemy : MonoBehaviour
             _navMeshAgent.SetDestination(MainGame.Instance.Player.transform.position);
             if (_playerDistance <= _shootDistance)
             {
+                transform.rotation = Quaternion.LookRotation(MainGame.Instance.Player.transform.position - transform.position);
                 _navMeshAgent.isStopped = true;
                 Shoot();
             }
