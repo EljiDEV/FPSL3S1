@@ -50,6 +50,16 @@ public class VacuumProto : MonoBehaviour
     [Tooltip("Garde la rotation initiale de l'objet par rapport au joueur")]
     public bool keepInitialRelativeRotation = true;
 
+    [Header("Dégâts des Projectiles")]
+    [Tooltip("Dégâts petit objet")]
+    public int suckableProjectileDamage = 1;
+    [Tooltip("Dégâts  gros objet ")]
+    public int biteProjectileDamage = 3;
+    [Tooltip("Vitesse min impact")]
+    public float minImpactSpeedForDamage = 2.5f;
+    [Tooltip("Durée max du tir")]
+    public float projectileDamageLifetime = 4f;
+
     [Header("Apparence de l'objet tenu (Bite)")]
     [Range(0f, 1f)]
     public float heldObjectAlpha = 0.5f;
@@ -101,21 +111,17 @@ public class VacuumProto : MonoBehaviour
             foreach (var r in rootTransform.GetComponentsInChildren<Rigidbody>(true)) playerRbs.Add(r);
         }
 
-        
         if (playerRoot != null) CollectFromRoot(playerRoot.transform.root);
         CollectFromRoot(transform.root);
 
-        
         if (Camera.main != null) CollectFromRoot(Camera.main.transform.root);
 
-        
         GameObject taggedPlayer = GameObject.FindGameObjectWithTag("Player");
         if (taggedPlayer != null) CollectFromRoot(taggedPlayer.transform.root);
 
         CharacterController cc = FindFirstObjectByType<CharacterController>();
         if (cc != null) CollectFromRoot(cc.transform.root);
 
-        
         if (suctionPoint != null)
         {
             foreach (var c in suctionPoint.GetComponentsInChildren<Collider>(true)) c.enabled = false;
@@ -124,7 +130,7 @@ public class VacuumProto : MonoBehaviour
         {
             foreach (var c in launchPoint.GetComponentsInChildren<Collider>(true)) c.enabled = false;
         }
-        
+
         foreach (Rigidbody rb in playerRbs)
         {
             if (rb != null)
@@ -166,7 +172,6 @@ public class VacuumProto : MonoBehaviour
 
     void LateUpdate()
     {
-        
         if (suctionPoint != null)
         {
             suctionPoint.localPosition = suctionInitialLocalPos;
@@ -256,6 +261,10 @@ public class VacuumProto : MonoBehaviour
     {
         if (storedObjects.Contains(target)) return;
 
+        
+        VacuumThrownProjectile existingTracker = target.GetComponent<VacuumThrownProjectile>();
+        if (existingTracker != null) Destroy(existingTracker);
+
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.isKinematic = true;
@@ -268,6 +277,9 @@ public class VacuumProto : MonoBehaviour
     {
         heldBiteObject = target;
         heldBiteRb = rb;
+
+        VacuumThrownProjectile existingTracker = target.GetComponent<VacuumThrownProjectile>();
+        if (existingTracker != null) Destroy(existingTracker);
 
         originalUseGravity = heldBiteRb.useGravity;
         originalLinearDamping = heldBiteRb.linearDamping;
@@ -298,27 +310,36 @@ public class VacuumProto : MonoBehaviour
     {
         if (launchPoint == null) return;
 
+        
         if (heldBiteObject != null && heldBiteRb != null)
         {
             RestoreOriginalMaterials();
 
+            GameObject shotBiteObj = heldBiteObject;
+            Rigidbody shotBiteRb = heldBiteRb;
             Collider[] colsToRestore = heldBiteColliders;
             heldBiteColliders = null;
 
-            heldBiteRb.useGravity = originalUseGravity;
-            heldBiteRb.linearDamping = originalLinearDamping;
-            heldBiteRb.angularDamping = originalAngularDamping;
-            heldBiteRb.mass = originalMass;
-            heldBiteRb.interpolation = originalInterpolation;
-            heldBiteRb.collisionDetectionMode = appliedForce > 0f
+            shotBiteRb.useGravity = originalUseGravity;
+            shotBiteRb.linearDamping = originalLinearDamping;
+            shotBiteRb.angularDamping = originalAngularDamping;
+            shotBiteRb.mass = originalMass;
+            shotBiteRb.interpolation = originalInterpolation;
+            shotBiteRb.collisionDetectionMode = appliedForce > 0f
                 ? CollisionDetectionMode.ContinuousDynamic
                 : originalCollisionMode;
 
-            heldBiteRb.linearVelocity = Vector3.zero;
-            heldBiteRb.angularVelocity = Vector3.zero;
+            shotBiteRb.linearVelocity = Vector3.zero;
+            shotBiteRb.angularVelocity = Vector3.zero;
 
             float finalForce = appliedForce > 0f ? appliedForce : 2f;
-            heldBiteRb.AddForce(launchPoint.forward * finalForce, ForceMode.Impulse);
+            shotBiteRb.AddForce(launchPoint.forward * finalForce, ForceMode.Impulse);
+
+            
+            if (appliedForce > 0f)
+            {
+                ArmThrownObject(shotBiteObj, shotBiteRb, biteProjectileDamage);
+            }
 
             if (colsToRestore != null)
             {
@@ -330,6 +351,7 @@ public class VacuumProto : MonoBehaviour
             return;
         }
 
+        
         if (appliedForce > 0f && storedObjects.Count > 0)
         {
             GameObject obj = storedObjects.Pop();
@@ -349,8 +371,21 @@ public class VacuumProto : MonoBehaviour
                 rb.linearVelocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
                 rb.AddForce(launchPoint.forward * appliedForce, ForceMode.Impulse);
+
+                ArmThrownObject(obj, rb, suckableProjectileDamage);
             }
         }
+    }
+
+    
+    private void ArmThrownObject(GameObject obj, Rigidbody rb, int damageAmount)
+    {
+        VacuumThrownProjectile tracker = obj.GetComponent<VacuumThrownProjectile>();
+        if (tracker == null)
+        {
+            tracker = obj.AddComponent<VacuumThrownProjectile>();
+        }
+        tracker.Initialize(rb, damageAmount, minImpactSpeedForDamage, projectileDamageLifetime);
     }
 
     private void SetIgnorePlayerCollisions(Collider[] objectColliders, bool ignore)
@@ -513,5 +548,72 @@ public class VacuumProto : MonoBehaviour
     void OnDisable()
     {
         RestoreOriginalMaterials();
+    }
+}
+
+
+public class VacuumThrownProjectile : MonoBehaviour
+{
+    private Rigidbody _rb;
+    private int _damage;
+    private float _minImpactSpeed;
+    private float _expireTime;
+    private bool _hasDealtDamage;
+
+    public void Initialize(Rigidbody rb, int damage, float minImpactSpeed, float lifetime)
+    {
+        _rb = rb;
+        _damage = damage;
+        _minImpactSpeed = minImpactSpeed;
+        _expireTime = Time.time + lifetime;
+        _hasDealtDamage = false;
+    }
+
+    private void Update()
+    {
+        
+        if (Time.time >= _expireTime || (_rb != null && _rb.linearVelocity.sqrMagnitude < 0.2f && Time.time > _expireTime - 3.5f))
+        {
+            Destroy(this);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (_hasDealtDamage) return;
+
+        
+        float impactSpeed = collision.relativeVelocity.magnitude;
+        if (impactSpeed < _minImpactSpeed && (_rb == null || _rb.linearVelocity.magnitude < _minImpactSpeed))
+        {
+            return;
+        }
+
+        
+        BroomEnemy broom = collision.gameObject.GetComponentInParent<BroomEnemy>();
+        if (broom != null)
+        {
+            broom.TakeDamage(_damage);
+            _hasDealtDamage = true;
+            Destroy(this);
+            return;
+        }
+
+        
+        FlyingEnemy flying = collision.gameObject.GetComponentInParent<FlyingEnemy>();
+        if (flying != null)
+        {
+            flying.TakeDamage(_damage);
+            _hasDealtDamage = true;
+            Destroy(this);
+            return;
+        }
+
+        
+        Projectile enemyProj = collision.gameObject.GetComponentInParent<Projectile>();
+        if (enemyProj != null)
+        {
+            Destroy(enemyProj.gameObject);
+        }
     }
 }
