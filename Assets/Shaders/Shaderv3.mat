@@ -38,7 +38,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _BitesDeCouleur: 16
-    - _Float: 0.5
+    - _Float: 0
     - _Luminosite: 2.5
     - _PixelSize: 4
     m_Colors: []
