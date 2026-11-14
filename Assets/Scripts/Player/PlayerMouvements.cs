@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class PlayerMouvements : MonoBehaviour
 {
@@ -25,8 +26,17 @@ public class PlayerMouvements : MonoBehaviour
     [SerializeField] private float _lifeHealTime;
     public GameObject DamageUI;
     
+    [Header("Effects Data")]
+    [SerializeField] private float _walkEffectDuration;
+    [SerializeField] private float _walkEffectAmount;
+    [SerializeField] private float _runEffectDuration;
+    [SerializeField] private float _runEffectAmount;
+    
+    
     [Header("Other Settings")]
     [SerializeField] private Transform _orientation;
+    
+    private PlayerCam _playerCam;
     
     private float _verticalVelocity;
     
@@ -36,6 +46,7 @@ public class PlayerMouvements : MonoBehaviour
     private bool _isSprinting;
     private bool _canJump;
     private bool _inAir;
+    private bool _effectStarted;
 
     private bool _hasHeal;
     private bool _isDead;
@@ -46,17 +57,21 @@ public class PlayerMouvements : MonoBehaviour
     private Vector3 _moveDirection;
     private Vector3 _currentHorizontalVelocity;
     
+    private Coroutine _effectCoroutine;
+    
     void Start()
     {
         _characterController = GetComponent<CharacterController>();
         _canJump = true;
-        Cursor.lockState = CursorLockMode.Confined;
+        _effectStarted = false;
+        _playerCam = FindAnyObjectByType<PlayerCam>();
     }
     
     void Update()
     {
         GetInput();
         Gravity();
+        WalkingEffect();
     }
 
     private void FixedUpdate()
@@ -165,8 +180,12 @@ public class PlayerMouvements : MonoBehaviour
         for (int i = 0; i < DamageUI.transform.childCount; i++)
         {
             Color _color = DamageUI.transform.GetChild(i).gameObject.GetComponent<Image>().color;
+            Image _image = DamageUI.transform.GetChild(i).GetComponent<Image>();
             _color.a += DamageTaken;
-            DamageUI.transform.GetChild(i).gameObject.GetComponent<Image>().color = _color;
+            
+            _image.DOKill();
+            _image.DOFade(_color.a, 0.15f);
+            
             if (_color.a >= 1)
             {
                 _isDead = true;
@@ -193,14 +212,42 @@ public class PlayerMouvements : MonoBehaviour
             for (int i = 0; i < DamageUI.transform.childCount; i++)
             {
                 Color _color = DamageUI.transform.GetChild(i).gameObject.GetComponent<Image>().color;
+                Image _image = DamageUI.transform.GetChild(i).GetComponent<Image>();
                 if (_color.a >= 0)
                 {
                     _color.a -= _lifeHealAmount;
                 }
-                DamageUI.transform.GetChild(i).gameObject.GetComponent<Image>().color = _color;
-            
+                _image.DOKill();
+                _image.DOFade(_color.a, 0.25f);
+                
                 _hasHeal = false;
             }
         }
+    }
+
+    private void WalkingEffect()
+    {
+        if (_horizontalInput != 0 && _effectStarted == false || _verticalInput != 0 && _effectStarted == false)
+        {
+            if (_inAir == false && _isSprinting)
+            {
+                _effectStarted = true;
+                _playerCam.WalkingEffect(_walkEffectAmount,_walkEffectDuration);
+                StopCoroutine(_effectCoroutine);
+                _effectCoroutine = StartCoroutine(EffectRate(_walkEffectDuration));
+            }
+            else if (_inAir == false && _isSprinting == false)
+            {
+                _effectStarted = true;
+                _playerCam.WalkingEffect(_runEffectAmount,_runEffectDuration);
+                _effectCoroutine = StartCoroutine(EffectRate(_runEffectDuration));
+            }
+        }
+    }
+
+    IEnumerator EffectRate(float _time)
+    {
+        yield return new WaitForSeconds(_time);
+        _effectStarted = false;
     }
 }

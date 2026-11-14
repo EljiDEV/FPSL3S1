@@ -1148,6 +1148,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5327475112523717815, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
   m_PrefabInstance: {fileID: 8547087253911851328}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1539559904 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9109950691124507844, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+  m_PrefabInstance: {fileID: 8547087253911851328}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1575372847 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7280f0c6300d40f4db9530ce36c4af7c, type: 3}
@@ -1314,6 +1319,10 @@ PrefabInstance:
     - target: {fileID: 8370676600558152745, guid: 1032372aa14dba849893e95401dd5b99, type: 3}
       propertyPath: m_Name
       value: FlyingBook
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482547809229604587, guid: 1032372aa14dba849893e95401dd5b99, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9204674922236751068, guid: 1032372aa14dba849893e95401dd5b99, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1494,6 +1503,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7954769320109373, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 226712037594249591, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
       propertyPath: DamageUI
       value: 
@@ -1511,6 +1524,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 226712037594249591, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: _playerCam
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 226712037594249591, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
       propertyPath: _coyotteTime
       value: 0.2
       objectReference: {fileID: 0}
@@ -1521,6 +1538,10 @@ PrefabInstance:
     - target: {fileID: 226712037594249591, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
       propertyPath: _lifeHealAmount
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 226712037594249591, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: _nextEffectTime
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 226712037594249591, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
       propertyPath: _airAcceleration
@@ -1534,9 +1555,33 @@ PrefabInstance:
       propertyPath: _damageTakenQuantity
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 706307972144329426, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: _cameraHolder
+      value: 
+      objectReference: {fileID: 1539559904}
+    - target: {fileID: 706307972144329426, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: _effectAmount
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 706307972144329426, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: _playerCamera
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 706307972144329426, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: _effectDuration
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 706307972144329426, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: _cameraRecoilHolder
+      value: 
+      objectReference: {fileID: 1539559904}
     - target: {fileID: 5327475112523717815, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087319645218472603, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7160811476503902308, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1576,6 +1621,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7160811476503902308, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8462243070613503184, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

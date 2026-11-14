@@ -3,6 +3,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using DG.Tweening;
 
 public class BroomEnemy : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class BroomEnemy : MonoBehaviour
     [SerializeField] private float _pushBackDistance;
     [SerializeField] private float _pushBackForce;
     
+    private MeshRenderer _meshRenderer;
+    private Color _originalColor;
+    
     NavMeshAgent _navMeshAgent;
     Coroutine _coroutine;
     
@@ -30,6 +34,9 @@ public class BroomEnemy : MonoBehaviour
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshAgent.speed = _speed;
+        
+        _meshRenderer = GetComponent<MeshRenderer>();
+        _originalColor = _meshRenderer.material.GetColor("_BaseColor");
     }
 
     void Update()
@@ -67,6 +74,17 @@ public class BroomEnemy : MonoBehaviour
         if (_health <= 0)
         {
             Destroy(gameObject);
+            return;
         }
+        FeedbackDamage();
+    }
+    
+    private void FeedbackDamage()
+    {
+        _meshRenderer.material.DOKill();
+        _meshRenderer.material.DOColor(Color.red, 0.05f).OnComplete(() =>
+        {
+            _meshRenderer.material.DOColor(_originalColor, 0.15f); 
+        });
     }
 }
