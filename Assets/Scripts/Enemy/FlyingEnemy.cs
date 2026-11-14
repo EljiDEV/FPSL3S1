@@ -14,6 +14,7 @@ public class FlyingEnemy : MonoBehaviour
     
     [Header("Shoot Data")]
     [SerializeField] private float _shootCooldown;
+    [SerializeField] private ParticleSystem _shootParticles;
 
     GameObject _shootPosition;
     NavMeshAgent _navMeshAgent;
@@ -51,10 +52,11 @@ public class FlyingEnemy : MonoBehaviour
             {
                 transform.rotation = Quaternion.LookRotation(MainGame.Instance.Player.transform.position - transform.position);
                 
+                Shoot();
+                
                 if (CanSeePlayer())
                 {
                     _navMeshAgent.isStopped = true;
-                    Shoot();
                 }
             }
             else
@@ -95,6 +97,7 @@ public class FlyingEnemy : MonoBehaviour
     {
         yield return new WaitForSeconds(_shootCooldown);
         Instantiate(_projectilePrefab, new Vector3(_shootPosition.transform.position.x,_shootPosition.transform.position.y,_shootPosition.transform.position.z), transform.rotation);
+        Instantiate(_shootParticles, new Vector3(_shootPosition.transform.position.x, _shootPosition.transform.position.y, _shootPosition.transform.position.z), transform.rotation);
         _canShoot = true;
     }
     
