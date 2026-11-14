@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
     [Header("Data")]
     [SerializeField] private float _speed;
     [SerializeField] private float _damage;
+    [SerializeField] private ParticleSystem _brokeParticles;
     private Rigidbody _rigidbody;
 
     private void Awake()
@@ -31,6 +32,7 @@ public class Projectile : MonoBehaviour
             {
                 MainGame.Instance.Player.GetComponent<PlayerMouvements>().TakeDamage(_damage);
             }
+            Instantiate(_brokeParticles, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }

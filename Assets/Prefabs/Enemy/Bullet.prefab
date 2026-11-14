@@ -155,3 +155,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   _speed: 6
   _damage: 0.1
+  _brokeParticles: {fileID: 8851722826875267773, guid: 92091f2e1a0b016439de0ab3e0e55285, type: 3}
