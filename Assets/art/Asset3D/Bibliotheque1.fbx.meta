@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9e3cf92eb3cba7044be1d8955aa3266f
+guid: 5317ae0b8f69fc642beadbe1b172c0d3
 ModelImporter:
   serializedVersion: 24501
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: bookshelf-generated-hires-texture-background-46246761
-    second: {fileID: 2800000, guid: 96b70858869c23e4899ae30c8cb3c716, type: 3}
+    second: {fileID: 2800000, guid: bcf3b2a0767071540b5aef3d16691df2, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
