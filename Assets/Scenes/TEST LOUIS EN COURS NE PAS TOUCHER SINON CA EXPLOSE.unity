@@ -365,6 +365,10 @@ PrefabInstance:
       propertyPath: _cameraHolder
       value: 
       objectReference: {fileID: 56489734}
+    - target: {fileID: 3843600793702349974, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5327475112523717815, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
       propertyPath: m_Name
       value: Player
@@ -412,6 +416,18 @@ PrefabInstance:
     - target: {fileID: 7160811476503902308, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8176422667953089575, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 8176422667953089575, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.255
+      objectReference: {fileID: 0}
+    - target: {fileID: 8176422667953089575, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.844
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -51873,8 +51889,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5dd0921d6de7f844b51c847eed8c6d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyKnockback
-  pushPlayer: 1
-  pushEnemy: 0
+  pushPlayer: 0
+  pushEnemy: 1
   pushForce: 24
   upwardLift: 6
   pushDuration: 0.25
