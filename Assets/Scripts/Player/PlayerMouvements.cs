@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.Controls;
 using UnityEngine.UI;
 using DG.Tweening;
 
@@ -20,6 +19,10 @@ public class PlayerMouvements : MonoBehaviour
     [Header("Air & Ground Control")]
     [SerializeField] private float _groundAcceleration;
     [SerializeField] private float _airAcceleration;
+    [Tooltip("Distance supplémentaire du Raycast sous les pieds pour détecter le sol et les plateformes mobiles")]
+    [SerializeField] private float _groundCheckDistance = 0.35f;
+    [Tooltip("Layers considérés comme du sol (laisse Everything par défaut)")]
+    [SerializeField] private LayerMask _groundMask = ~0;
 
     [Header("Life Data")]
     [SerializeField] private float _lifeHealAmount;
@@ -31,7 +34,6 @@ public class PlayerMouvements : MonoBehaviour
     [SerializeField] private float _walkEffectAmount;
     [SerializeField] private float _runEffectDuration;
     [SerializeField] private float _runEffectAmount;
-    
     
     [Header("Other Settings")]
     [SerializeField] private Transform _orientation;
@@ -46,6 +48,7 @@ public class PlayerMouvements : MonoBehaviour
     private bool _isSprinting;
     private bool _canJump;
     private bool _inAir;
+    private bool _isGroundedRay;
     private bool _effectStarted;
 
     private bool _hasHeal;
@@ -69,6 +72,7 @@ public class PlayerMouvements : MonoBehaviour
     
     void Update()
     {
+        _isGroundedRay = CheckGrounded();
         GetInput();
         Gravity();
         WalkingEffect();
@@ -79,13 +83,38 @@ public class PlayerMouvements : MonoBehaviour
         MovePlayer();
         SearchToHeal();
     }
+
+    
+    private bool CheckGrounded()
+    {
+        if (_characterController.isGrounded) return true;
+
+        Bounds b = _characterController.bounds;
+        Vector3 rayOrigin = b.center;
+        float rayLength = b.extents.y + _groundCheckDistance;
+
+        RaycastHit[] hits = Physics.RaycastAll(rayOrigin, Vector3.down, rayLength, _groundMask, QueryTriggerInteraction.Ignore);
+        foreach (RaycastHit hit in hits)
+        {
+            
+            if (hit.transform == transform || hit.transform.IsChildOf(transform)) continue;
+            return true;
+        }
+
+        return false;
+    }
     
     private void GetInput()
     {
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         _verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey(KeyCode.Space) && _canJump && _inAir == false)
+        
+        if (Input.GetKeyDown(KeyCode.Space) && _canJump && (_isGroundedRay || _inAir == false))
+        {
+            Jump();
+        }
+        else if (Input.GetKey(KeyCode.Space) && _canJump && (_isGroundedRay || _inAir == false))
         {
             Jump();
         }
@@ -148,12 +177,11 @@ public class PlayerMouvements : MonoBehaviour
 
     private void Gravity()
     {
-        if (_characterController.isGrounded && _canJump)
+        if (_isGroundedRay && _canJump)
         {
             _verticalVelocity = -0.2f;
             _inAir = false;
         }
-        
         else
         {
             _verticalVelocity -= _gravity * Time.deltaTime;
@@ -168,7 +196,8 @@ public class PlayerMouvements : MonoBehaviour
     IEnumerator CoyotteTime()
     {
         yield return new WaitForSeconds(_coyotteTime);
-        if (_inAir == false)
+        
+        if (!_isGroundedRay)
         {
             _inAir = true;
         }
@@ -233,7 +262,7 @@ public class PlayerMouvements : MonoBehaviour
             {
                 _effectStarted = true;
                 _playerCam.WalkingEffect(_walkEffectAmount,_walkEffectDuration);
-                StopCoroutine(_effectCoroutine);
+                if (_effectCoroutine != null) StopCoroutine(_effectCoroutine);
                 _effectCoroutine = StartCoroutine(EffectRate(_walkEffectDuration));
             }
             else if (_inAir == false && _isSprinting == false)
@@ -249,5 +278,16 @@ public class PlayerMouvements : MonoBehaviour
     {
         yield return new WaitForSeconds(_time);
         _effectStarted = false;
+    }
+
+    
+    private void OnDrawGizmosSelected()
+    {
+        CharacterController cc = GetComponent<CharacterController>();
+        if (cc == null) return;
+
+        Bounds b = cc.bounds;
+        Gizmos.color = _isGroundedRay ? Color.green : Color.red;
+        Gizmos.DrawLine(b.center, b.center + Vector3.down * (b.extents.y + _groundCheckDistance));
     }
 }
