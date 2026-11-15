@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class FloatingPlatform : MonoBehaviour
 {
     [Header("Amplitude")]
     [Tooltip("Amplitude par axe (pas le déodorant)")]
+    public bool mouvementOn = true;
     public Vector3 moveAmplitude = new Vector3(0f, 0.4f, 0f);
     [Tooltip("MoveSpeed")]
     public float moveSpeed = 1.5f;
@@ -45,7 +45,6 @@ public class FloatingPlatform : MonoBehaviour
         Vector3 oldWorldPos = transform.position;
         Quaternion oldWorldRot = transform.rotation;
         bool playerOnPlatform = IsPlayerOnPlatform();
-
         
         Vector3 targetLocalPos = _startLocalPos + moveAmplitude * Mathf.Sin(t * moveSpeed);
         Quaternion targetLocalRot = _startLocalRot * Quaternion.Euler(rotationAmplitude * Mathf.Sin(t * rotationSpeed));
