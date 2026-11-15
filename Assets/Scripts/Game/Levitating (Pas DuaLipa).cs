@@ -1,5 +1,6 @@
 using UnityEngine;
 
+public class Levitating : MonoBehaviour
 {
     [Header("Amplitude")]
     [Tooltip("Amplitude par axe (pas le déodorant)")]
