@@ -37,8 +37,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Contrast: 0.5
-    - _Exposition: 2
+    - _Contrast: 0.9
+    - _Exposition: 5
     - _Float: 0
     - _LightScale: 5
     - _On: 1
