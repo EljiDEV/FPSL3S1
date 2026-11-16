@@ -247,6 +247,7 @@ GameObject:
   - component: {fileID: 226712037594249591}
   - component: {fileID: 209427618821643720}
   - component: {fileID: 5294326542448524051}
+  - component: {fileID: 6188320292740134299}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -436,9 +437,22 @@ MonoBehaviour:
   angle: 45
   absorbDistance: 1.5
   suctionPoint: {fileID: 5833245114918139149}
-  biteHoldPoint: {fileID: 2215255995067540966}
+  biteHoldPoint: {fileID: 1679153819624539103}
   speed: 15
   capacity: 10
+  inventorySprites:
+  - {fileID: 21300000, guid: 776db41c2ac363e4ab299b6ce2dd1ed1, type: 3}
+  - {fileID: 21300000, guid: 8f38d9acb7a4f7c46b247851482c3cb1, type: 3}
+  - {fileID: 21300000, guid: 23ec3766d675d114ea8f1370b6cd3cac, type: 3}
+  - {fileID: 21300000, guid: b625d18faa1ad7a41ac45f4eaac794f6, type: 3}
+  - {fileID: 21300000, guid: 7480e2c16f642f14391d27e2d02a0f41, type: 3}
+  - {fileID: 21300000, guid: f83039e18963e8340ac4de0fc2172c13, type: 3}
+  - {fileID: 21300000, guid: 031a278577a5f824e8e4f371f922a685, type: 3}
+  - {fileID: 21300000, guid: 807a0b36010c34b4a9b147817cf4a2dc, type: 3}
+  - {fileID: 21300000, guid: a7b00d55553cea0448690a12bf8b7216, type: 3}
+  - {fileID: 21300000, guid: 5c92d666af729c54f902bf87904ba138, type: 3}
+  - {fileID: 21300000, guid: c70640e05b08119448b3acf9c61d9085, type: 3}
+  inventoryUIimage: {fileID: 0}
   launchPoint: {fileID: 8176422667953089575}
   launchVelocity: 25
   holdSpringForce: 60
@@ -466,6 +480,52 @@ MonoBehaviour:
   collectiblesContainer: {fileID: 0}
   scoreText: {fileID: 0}
   winPanel: {fileID: 0}
+--- !u!114 &6188320292740134299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5327475112523717815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7e982f0d1aab854ca4e03dfca86e375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  collectiblesContainer: {fileID: 0}
+  scoreText: {fileID: 0}
+  winPanel: {fileID: 0}
+--- !u!1 &5690321422012364138
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1679153819624539103}
+  m_Layer: 6
+  m_Name: Suck wind
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1679153819624539103
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5690321422012364138}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.4, y: -0.21, z: 2.08}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4001437651576206929}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6087319645218472603
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,6 +558,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4747720106758997404}
+  - {fileID: 1679153819624539103}
   - {fileID: 5833245114918139149}
   - {fileID: 2215255995067540966}
   - {fileID: 8176422667953089575}
