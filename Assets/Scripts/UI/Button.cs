@@ -1,6 +1,5 @@
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 public class Button : MonoBehaviour
@@ -17,17 +16,29 @@ public class Button : MonoBehaviour
 
     public void OnPointerEnter()
     {
-        transform.DOScale(originalScale * 1.1f, 0.2f).SetEase(Ease.OutBack);
+        transform.DOKill();
+        transform.DOScale(originalScale * 1.1f, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
     }
 
     public void OnPointerExit()
     {
-        transform.DOScale(originalScale, 0.2f).SetEase(Ease.OutBack);
+        transform.DOKill();
+        transform.DOScale(originalScale, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
     }
 
     public void OnLoadScene()
     {
-        SceneManager.LoadScene(_sceneName);
+        Time.timeScale = 1f;
+        transform.DOKill();
+
+        if (SceneLoader.Instance != null)
+        {
+            SceneLoader.Instance.LoadScene(_sceneName);
+        }
+        else
+        {
+            SceneManager.LoadScene(_sceneName);
+        }
     }
 
     public void OnClickGameObject()
@@ -36,9 +47,7 @@ public class Button : MonoBehaviour
         {
             _credits.SetActive(false);
             _menu.SetActive(true);
-            
         }
-        
         else
         {
             _menu.SetActive(false);
@@ -49,5 +58,10 @@ public class Button : MonoBehaviour
     public void OnClickQuit()
     {
         Application.Quit();
+    }
+
+    private void OnDestroy()
+    {
+        transform.DOKill();
     }
 }
