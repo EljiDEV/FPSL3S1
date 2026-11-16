@@ -9,7 +9,15 @@ public class ChangementScene : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            SceneManager.LoadScene(nomDeLaScene);
+            
+            if (SceneLoader.Instance != null)
+            {
+                SceneLoader.Instance.LoadScene(nomDeLaScene);
+            }
+            else
+            {
+                SceneManager.LoadScene(nomDeLaScene);
+            }
         }
     }
 }
