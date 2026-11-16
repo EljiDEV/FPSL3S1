@@ -7,6 +7,8 @@ public class Button : MonoBehaviour
 {
     private Vector3 originalScale;
     [SerializeField] private string _sceneName;
+    [SerializeField] private GameObject _credits;
+    [SerializeField] private GameObject _menu;
 
     void Start()
     {
@@ -26,6 +28,22 @@ public class Button : MonoBehaviour
     public void OnLoadScene()
     {
         SceneManager.LoadScene(_sceneName);
+    }
+
+    public void OnClickGameObject()
+    {
+        if (_credits.activeInHierarchy)
+        {
+            _credits.SetActive(false);
+            _menu.SetActive(true);
+            
+        }
+        
+        else
+        {
+            _menu.SetActive(false);
+            _credits.SetActive(true);
+        }
     }
 
     public void OnClickQuit()
