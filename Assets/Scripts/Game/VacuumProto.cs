@@ -69,6 +69,7 @@ public class VacuumProto : MonoBehaviour
     [Range(0f, 1f)]
     public float heldObjectAlpha = 0.5f;
     public Material customTransparentMaterial = null;
+    public ParticleSystem particouilles;
 
     private struct RendererMaterialBackup
     {
@@ -83,6 +84,7 @@ public class VacuumProto : MonoBehaviour
 
     private float nextActionTime = 0f;
     private float actionCooldown = 0.2f;
+    
 
     
     private Transform ActiveBitePoint => biteHoldPoint != null ? biteHoldPoint : suctionPoint;
@@ -186,6 +188,11 @@ public class VacuumProto : MonoBehaviour
             if (Input.GetMouseButton(1) && Time.time >= nextActionTime)
             {
                 Suck();
+                particouilles.gameObject.SetActive(true);
+            }
+            else
+            {
+                particouilles.gameObject.SetActive(false);
             }
         }
     }
@@ -225,6 +232,7 @@ public class VacuumProto : MonoBehaviour
                 : holdTarget.rotation;
 
             heldBiteRb.MoveRotation(targetRotation);
+            particouilles.gameObject.SetActive(false);
         }
     }
 
