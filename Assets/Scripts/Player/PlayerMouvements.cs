@@ -54,6 +54,7 @@ public class PlayerMouvements : MonoBehaviour
     private bool _hasHeal;
     private bool _isDead;
     private bool _hasRun;
+    private string nomDeLaScene;
     
     private CharacterController _characterController;
 
@@ -64,10 +65,13 @@ public class PlayerMouvements : MonoBehaviour
     
     void Start()
     {
+        nomDeLaScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         _characterController = GetComponent<CharacterController>();
         _canJump = true;
         _effectStarted = false;
         _playerCam = FindAnyObjectByType<PlayerCam>();
+        _isDead = false;
+        
     }
     
     void Update()
@@ -206,19 +210,41 @@ public class PlayerMouvements : MonoBehaviour
     
     public void TakeDamage(float DamageTaken)
     {
+        
+        if (_isDead) return;
+
         for (int i = 0; i < DamageUI.transform.childCount; i++)
         {
-            Color _color = DamageUI.transform.GetChild(i).gameObject.GetComponent<Image>().color;
             Image _image = DamageUI.transform.GetChild(i).GetComponent<Image>();
-            _color.a += DamageTaken;
+            Color _color = _image.color;
             
+            
+            float targetAlpha = Mathf.Clamp01(_color.a + DamageTaken);
+
             _image.DOKill();
-            _image.DOFade(_color.a, 0.15f);
+            _image.DOFade(targetAlpha, 0.15f);
+
             
-            if (_color.a >= 1)
+            if (targetAlpha >= 1f && !_isDead)
             {
                 _isDead = true;
                 Debug.Log("Mort");
+            }
+        }
+
+        
+        if (_isDead)
+        {
+            string activeScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+
+            if (SceneLoader.Instance != null)
+            {
+                SceneLoader.Instance.LoadScene(activeScene);
+            }
+            else
+            {
+                
+                UnityEngine.SceneManagement.SceneManager.LoadScene(activeScene);
             }
         }
     }
@@ -289,5 +315,16 @@ public class PlayerMouvements : MonoBehaviour
         Bounds b = cc.bounds;
         Gizmos.color = _isGroundedRay ? Color.green : Color.red;
         Gizmos.DrawLine(b.center, b.center + Vector3.down * (b.extents.y + _groundCheckDistance));
+    }
+    private void OnDestroy()
+    {
+        if (DamageUI != null)
+        {
+            for (int i = 0; i < DamageUI.transform.childCount; i++)
+            {
+                Image img = DamageUI.transform.GetChild(i).GetComponent<Image>();
+                if (img != null) img.DOKill();
+            }
+        }
     }
 }
