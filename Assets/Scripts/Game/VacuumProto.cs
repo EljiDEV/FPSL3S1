@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI; // Nécessaire pour piloter l'UI Image
 using System.Collections;
 using System.Collections.Generic;
 
@@ -24,6 +25,12 @@ public class VacuumProto : MonoBehaviour
     public float speed = 15f;
     public int capacity = 10;
     private Stack<GameObject> storedObjects = new Stack<GameObject>();
+
+    [Header("UI Inventaire (Sprites)")]
+    [Tooltip("Glisse ici tes 10 sprites dans l'ordre (Index 0 = vide, Index 10 = plein)")]
+    public Sprite[] inventorySprites;
+    [Tooltip("Glisse ici le composant Image de ton Canvas qui affiche l'inventaire")]
+    public Image inventoryUIimage;
 
     private GameObject heldBiteObject = null;
     private Rigidbody heldBiteRb = null;
@@ -69,6 +76,7 @@ public class VacuumProto : MonoBehaviour
     [Range(0f, 1f)]
     public float heldObjectAlpha = 0.5f;
     public Material customTransparentMaterial = null;
+    public ParticleSystem particouilles;
 
     private struct RendererMaterialBackup
     {
@@ -83,7 +91,6 @@ public class VacuumProto : MonoBehaviour
 
     private float nextActionTime = 0f;
     private float actionCooldown = 0.2f;
-
     
     private Transform ActiveBitePoint => biteHoldPoint != null ? biteHoldPoint : suctionPoint;
 
@@ -111,6 +118,7 @@ public class VacuumProto : MonoBehaviour
         }
 
         GatherPlayerColliders();
+        UpdateInventoryUI();
     }
 
     private void GatherPlayerColliders()
@@ -186,6 +194,11 @@ public class VacuumProto : MonoBehaviour
             if (Input.GetMouseButton(1) && Time.time >= nextActionTime)
             {
                 Suck();
+                if (particouilles != null) particouilles.gameObject.SetActive(true);
+            }
+            else
+            {
+                if (particouilles != null) particouilles.gameObject.SetActive(false);
             }
         }
     }
@@ -225,6 +238,7 @@ public class VacuumProto : MonoBehaviour
                 : holdTarget.rotation;
 
             heldBiteRb.MoveRotation(targetRotation);
+            if (particouilles != null) particouilles.gameObject.SetActive(false);
         }
     }
 
@@ -245,7 +259,6 @@ public class VacuumProto : MonoBehaviour
             GameObject rootObj = rb.gameObject;
             bool isBiteObj = (rootObj.layer == biteLayerIndex);
 
-            
             Transform targetPoint = isBiteObj ? ActiveBitePoint : suctionPoint;
 
             Vector3 targetCenter = hit.bounds.center;
@@ -301,6 +314,8 @@ public class VacuumProto : MonoBehaviour
 
         target.SetActive(false);
         storedObjects.Push(target);
+
+        UpdateInventoryUI();
     }
 
     void HoldBiteObject(GameObject target, Rigidbody rb)
@@ -402,7 +417,18 @@ public class VacuumProto : MonoBehaviour
 
                 ArmThrownObject(obj, rb, suckableProjectileDamage);
             }
+
+            UpdateInventoryUI();
         }
+    }
+
+    
+    private void UpdateInventoryUI()
+    {
+        if (inventoryUIimage == null || inventorySprites == null || inventorySprites.Length == 0) return;
+
+        int count = Mathf.Clamp(storedObjects.Count, 0, inventorySprites.Length - 1);
+        inventoryUIimage.sprite = inventorySprites[count];
     }
 
     private void ArmThrownObject(GameObject obj, Rigidbody rb, int damageAmount)
@@ -472,7 +498,7 @@ public class VacuumProto : MonoBehaviour
                 }
             }
         }
-        return false;
+    return false;
     }
 
     private void ApplyHeldTransparency(GameObject target)
