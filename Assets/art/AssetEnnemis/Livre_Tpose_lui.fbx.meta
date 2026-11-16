@@ -1,0 +1,274 @@
+fileFormatVersion: 2
+guid: 1f4dcd24e6874724b8d25f8c6a93f429
+ModelImporter:
+  serializedVersion: 24501
+  internalIDToNameTable: []
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+    searchTexturesGlobally: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 1
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
+    importUVs: -1
+    importVertexColors: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+    calculateBlendshapeNormalsDeltaFromImportedNormals: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: Livre_Tpose(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Armature
+      parentName: Livre_Tpose(Clone)
+      position: {x: -0, y: 0.96230245, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Base_pages
+      parentName: Armature
+      position: {x: -0, y: 0, z: 0.001}
+      rotation: {x: -0.5827403, y: 0.5827406, z: 0.40051618, w: -0.40051705}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Base_page1.r
+      parentName: Base_pages
+      position: {x: -1.3552527e-22, y: 0.0000999999, z: 2.4158453e-15}
+      rotation: {x: -0.065343134, y: 0.00000020861623, z: -0.000000029802319, w: 0.9978628}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_page2.r
+      parentName: Base_page1.r
+      position: {x: -7.105419e-17, y: 0.00005286932, z: -9.617307e-17}
+      rotation: {x: -9.094949e-13, y: -0.0000001192093, z: -6.1979315e-19, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_page3.r
+      parentName: Base_page2.r
+      position: {x: 3.5527136e-17, y: 0.00021211505, z: 0}
+      rotation: {x: -0.51422155, y: -0.41274756, z: -0.470603, w: 0.58630073}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_page3.r.001
+      parentName: Base_page3.r
+      position: {x: -0, y: 0.00035639404, z: 0}
+      rotation: {x: -0.49999985, y: 0.4999999, z: -0.5000001, w: 0.5000001}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_page3.r.001_end
+      parentName: Base_page3.r.001
+      position: {x: -0, y: 0.000000019995495, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Page3.r
+      parentName: Base_page3.r
+      position: {x: -0, y: 0.00035639404, z: 0}
+      rotation: {x: 0.7071068, y: 0.00000002669261, z: 0.00000042568462, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Page3.r_end
+      parentName: Page3.r
+      position: {x: -0, y: 0.009504058, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Page2.r
+      parentName: Base_page2.r
+      position: {x: 3.5527136e-17, y: 0.00021211505, z: 0}
+      rotation: {x: 0.7071068, y: 0.000000026692632, z: 0.0000004256846, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Page2.r_end
+      parentName: Page2.r
+      position: {x: -0, y: 0.009504058, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Page1.r
+      parentName: Base_page1.r
+      position: {x: -7.105419e-17, y: 0.00005286932, z: -9.617307e-17}
+      rotation: {x: 0.7071068, y: -0.000000015454226, z: 0.0000005521252, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Page1.r_end
+      parentName: Page1.r
+      position: {x: -0, y: 0.009504058, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_page1.l
+      parentName: Base_pages
+      position: {x: -3.0504939e-15, y: 0.0000999999, z: 0.0000000047683737}
+      rotation: {x: -0.0000018179419, y: 0.82411957, z: 0.5664159, w: -0.0000031944446}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_page2.l
+      parentName: Base_page1.l
+      position: {x: -6.7762634e-23, y: 0.00005286932, z: 9.617307e-17}
+      rotation: {x: 2.2294666e-13, y: 0.00000013908402, z: -0.000000049057917, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base_page3.l
+      parentName: Base_page2.l
+      position: {x: 3.005273e-18, y: 0.00021211505, z: 0}
+      rotation: {x: -0.0040352643, y: -0.67507875, z: 0.008536371, w: 0.7376854}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Page3.l
+      parentName: Base_page3.l
+      position: {x: 3.0052723e-18, y: 0.00035639404, z: 0}
+      rotation: {x: 0.22159219, y: -0.36734533, z: -0.3673463, w: 0.82523394}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Page3.l_end
+      parentName: Page3.l
+      position: {x: -0, y: 0.009504058, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Page2.l
+      parentName: Base_page2.l
+      position: {x: 3.005273e-18, y: 0.00021211505, z: 0}
+      rotation: {x: 0.7071068, y: -0.00000002669261, z: -0.00000042568462, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Page2.l_end
+      parentName: Page2.l
+      position: {x: -0, y: 0.009504058, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Page1.l
+      parentName: Base_page1.l
+      position: {x: -6.7762634e-23, y: 0.00005286932, z: 9.617307e-17}
+      rotation: {x: 0.7071068, y: -0.000000019662343, z: -0.0000005170085, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Page1.l_end
+      parentName: Page1.l
+      position: {x: -0, y: 0.009504058, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Armature_couverture
+      parentName: Livre_Tpose(Clone)
+      position: {x: -0, y: 1.0389881, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Tranche.r
+      parentName: Armature_couverture
+      position: {x: -0, y: 0, z: 0.0008777639}
+      rotation: {x: -0.3989368, y: 0.0000000047154245, z: 0.5838232, w: 0.70710677}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: Couverture.r
+      parentName: Tranche.r
+      position: {x: -9.3132255e-12, y: 0.0011420246, z: 0}
+      rotation: {x: -0.21790907, y: 0.41282532, z: -0.41282532, w: 0.7820909}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Couverture.r_end
+      parentName: Couverture.r
+      position: {x: -0, y: 0.00962937, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tranche.l
+      parentName: Armature_couverture
+      position: {x: -0, y: 0, z: 0.0008777639}
+      rotation: {x: -0.3989368, y: -0.0000000047154245, z: -0.5838232, w: 0.70710677}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: Couverture.l
+      parentName: Tranche.l
+      position: {x: 9.3132255e-12, y: 0.0011420246, z: 0}
+      rotation: {x: -0.21790907, y: -0.41282532, z: 0.41282532, w: 0.7820909}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Couverture.l_end
+      parentName: Couverture.l
+      position: {x: -0, y: 0.00962937, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Couverture
+      parentName: Livre_Tpose(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Pages2
+      parentName: Livre_Tpose(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
