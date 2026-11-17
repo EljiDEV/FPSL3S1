@@ -28195,7 +28195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6591a6648298ed4ba16a6da5f9a38f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChangementScene
-  nomDeLaScene: Aspitest2
+  nomDeLaScene: scene_Magic_School
 --- !u!65 &1833193685
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -34991,7 +34991,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 083ab1852f5e79c4389ace78d03ae5c5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.369949
+      value: -9.361
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 083ab1852f5e79c4389ace78d03ae5c5, type: 3}
       propertyPath: m_LocalPosition.y
