@@ -22,6 +22,7 @@ public class BroomEnemy : MonoBehaviour
     [SerializeField] private float _pushBackForce;
     
     private MeshRenderer _meshRenderer;
+    private Animator _animator;
     private Color _originalColor;
     
     NavMeshAgent _navMeshAgent;
@@ -37,6 +38,7 @@ public class BroomEnemy : MonoBehaviour
         
         _meshRenderer = GetComponent<MeshRenderer>();
         _originalColor = _meshRenderer.material.GetColor("_BaseColor");
+        _animator = gameObject.transform.GetChild(0).GetComponent<Animator>();
     }
 
     void Update()
@@ -52,12 +54,14 @@ public class BroomEnemy : MonoBehaviour
             _hitPlayer = true;
             MainGame.Instance.Player.GetComponent<PlayerMouvements>().TakeDamage(_damage);
             _navMeshAgent.isStopped = true;
+            _animator.SetBool("Run", false);
             _coroutine = StartCoroutine(CoolDown());
         }
 
         if (_followPlayer && _hitPlayer == false)
         {
             _navMeshAgent.SetDestination(MainGame.Instance.Player.transform.position);
+            _animator.SetBool("Run", true);
         }
     }
     
@@ -66,6 +70,7 @@ public class BroomEnemy : MonoBehaviour
         yield return new WaitForSeconds(_damageCooldown);
         _hitPlayer = false;
         _navMeshAgent.isStopped = false;
+        _animator.SetBool("Run", true);
     }
     
     public void TakeDamage(int _damage)
