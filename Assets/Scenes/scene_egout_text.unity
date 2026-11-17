@@ -27985,8 +27985,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
   sentences:
-  - "Je dois pouvoir attraper ces caisses avec le clic droit de notre aspirateur.
-    Et s\xFBrement clic gauche pour les envoyer..."
+  - "Je dois pouvoir attraper ces caisses avec le clic droit de mon aspirateur. Et
+    s\xFBrement clic gauche pour les envoyer..."
 --- !u!65 &1804197415
 BoxCollider:
   m_ObjectHideFlags: 0
