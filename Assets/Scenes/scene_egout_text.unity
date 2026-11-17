@@ -1626,7 +1626,7 @@ PrefabInstance:
     - target: {fileID: -804731622281664130, guid: dd440ee2ca666db4e877fb480741121a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: -3522955778539423533, guid: 442087ba1b6543845b9024d0ca965d47, type: 3}
+      objectReference: {fileID: 2100000, guid: 87854550d2886c8428d57c31a98c911b, type: 2}
     - target: {fileID: 919132149155446097, guid: dd440ee2ca666db4e877fb480741121a, type: 3}
       propertyPath: m_Name
       value: blocking_egout 2
@@ -2800,6 +2800,14 @@ PrefabInstance:
       propertyPath: DamageUI
       value: 
       objectReference: {fileID: 1493327205}
+    - target: {fileID: 706307972144329426, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: _sensX
+      value: 750
+      objectReference: {fileID: 0}
+    - target: {fileID: 706307972144329426, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: _sensY
+      value: 750
+      objectReference: {fileID: 0}
     - target: {fileID: 5327475112523717815, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
       propertyPath: m_Name
       value: Player 1
@@ -2843,6 +2851,22 @@ PrefabInstance:
     - target: {fileID: 7160811476503902308, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9013240075620169717, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: m_fontSize
+      value: 46
+      objectReference: {fileID: 0}
+    - target: {fileID: 9013240075620169717, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 9e74d5cf36f0a7f4bb3ce86e1a26cad7, type: 2}
+    - target: {fileID: 9013240075620169717, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 46
+      objectReference: {fileID: 0}
+    - target: {fileID: 9013240075620169717, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4334,7 +4358,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
   sentences:
-  - Shit here we go again
+  - "Travailler dans une \xE9cole de magie en tant qu'agent d'entretien est bien
+    frustrant. Je me sens incapable au milieu de personnes privil\xE9gi\xE9es. Mais
+    ce soir \xE7a va changer. Le directeur poss\xE8de un grimoire l\xE9gendaire permettant
+    d'accorder n'importe quel v\u0153u \xE0 celui qui lit son contenu."
+  - "L'\xE9cole est bien prot\xE9g\xE9e la nuit. Mais mes ann\xE9es de travail m'ont
+    permis de savoir qu'une faille s'y trouvait : Les \xE9gouts."
 --- !u!65 &642507039
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27979,8 +28008,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2.1420708, y: 1, z: 1}
+  m_Center: {x: 0.5710354, y: 0, z: 0}
 --- !u!23 &1833193686
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -28047,7 +28076,7 @@ Transform:
   m_GameObject: {fileID: 1833193683}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -55.864, y: 4.178, z: 35.08509}
+  m_LocalPosition: {x: -57.36, y: 4.178, z: 35.08509}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

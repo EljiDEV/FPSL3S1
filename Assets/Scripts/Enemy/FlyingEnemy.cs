@@ -22,6 +22,8 @@ public class FlyingEnemy : MonoBehaviour
     
     private MeshRenderer _meshRenderer;
     private Color _originalColor;
+
+    private Renderer[] _renderers;
     
     private bool _followPlayer;
     private bool _canShoot;
@@ -29,6 +31,7 @@ public class FlyingEnemy : MonoBehaviour
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _renderers = GetComponentsInChildren<Renderer>();
         _navMeshAgent.speed = _speed;
         _canShoot = true;
         _shootPosition = gameObject.transform.GetChild(0).gameObject;
@@ -114,10 +117,10 @@ public class FlyingEnemy : MonoBehaviour
     
     private void FeedbackDamage()
     {
-        _meshRenderer.material.DOKill();
-        _meshRenderer.material.DOColor(Color.red, 0.05f).OnComplete(() =>
+        foreach (Renderer rend in _renderers)
         {
-            _meshRenderer.material.DOColor(_originalColor, 0.15f); 
-        });
+            rend.material.DOKill();
+            rend.material.DOColor(Color.red, 0.05f).SetLoops(2, LoopType.Yoyo);
+        }
     }
 }

@@ -25,6 +25,8 @@ public class BroomEnemy : MonoBehaviour
     private Animator _animator;
     private Color _originalColor;
     
+    private Renderer[] _renderers;
+    
     NavMeshAgent _navMeshAgent;
     Coroutine _coroutine;
     
@@ -34,6 +36,7 @@ public class BroomEnemy : MonoBehaviour
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _renderers = GetComponentsInChildren<Renderer>();
         _navMeshAgent.speed = _speed;
         
         _meshRenderer = GetComponent<MeshRenderer>();
@@ -86,10 +89,10 @@ public class BroomEnemy : MonoBehaviour
     
     private void FeedbackDamage()
     {
-        _meshRenderer.material.DOKill();
-        _meshRenderer.material.DOColor(Color.red, 0.05f).OnComplete(() =>
+        foreach (Renderer rend in _renderers)
         {
-            _meshRenderer.material.DOColor(_originalColor, 0.15f); 
-        });
+            rend.material.DOKill();
+            rend.material.DOColor(Color.red, 0.05f).SetLoops(2, LoopType.Yoyo);
+        }
     }
 }
