@@ -634,6 +634,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5c92d666af729c54f902bf87904ba138, type: 3}
   - {fileID: 21300000, guid: c70640e05b08119448b3acf9c61d9085, type: 3}
   inventoryUIimage: {fileID: 0}
+  suckLoopClip: {fileID: 8300000, guid: e69f9cb17a0f4c947ab227f6649f70b9, type: 3}
+  suckVolume: 0.23
+  shootClip: {fileID: 8300000, guid: 333b7f5245ad8344a98f07a79cca5bfd, type: 3}
+  shootVolume: 0.196
+  loopShootWhileHeld: 0
   launchPoint: {fileID: 8176422667953089575}
   launchVelocity: 25
   holdSpringForce: 60

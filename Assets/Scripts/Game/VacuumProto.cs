@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.UI; // Nécessaire pour piloter l'UI Image
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -31,6 +31,19 @@ public class VacuumProto : MonoBehaviour
     public Sprite[] inventorySprites;
     [Tooltip("Glisse ici le composant Image de ton Canvas qui affiche l'inventaire")]
     public Image inventoryUIimage;
+
+    [Header("Audio (Aspiration & Tir)")]
+    [Tooltip("Son joué en boucle pendant qu'on aspire (clic droit maintenu)")]
+    public AudioClip suckLoopClip;
+    [Range(0f, 1f)] public float suckVolume = 0.6f;
+    [Tooltip("Son joué lors du tir (clic gauche)")]
+    public AudioClip shootClip;
+    [Range(0f, 1f)] public float shootVolume = 0.8f;
+    [Tooltip("Si coché, le son de tir boucle tant que le clic gauche est maintenu")]
+    public bool loopShootWhileHeld = false;
+
+    private AudioSource _suckAudioSource;
+    private AudioSource _shootAudioSource;
 
     private GameObject heldBiteObject = null;
     private Rigidbody heldBiteRb = null;
@@ -117,8 +130,28 @@ public class VacuumProto : MonoBehaviour
             launchInitialLocalRot = launchPoint.localRotation;
         }
 
+        SetupAudioSources();
         GatherPlayerColliders();
         UpdateInventoryUI();
+    }
+
+    private void SetupAudioSources()
+    {
+        
+        _suckAudioSource = gameObject.AddComponent<AudioSource>();
+        _suckAudioSource.clip = suckLoopClip;
+        _suckAudioSource.loop = true;
+        _suckAudioSource.playOnAwake = false;
+        _suckAudioSource.spatialBlend = 0f;
+        _suckAudioSource.volume = suckVolume;
+
+        // Source 2 : Son de tir (OneShot ou Loop selon réglage)
+        _shootAudioSource = gameObject.AddComponent<AudioSource>();
+        _shootAudioSource.clip = shootClip;
+        _shootAudioSource.loop = loopShootWhileHeld;
+        _shootAudioSource.playOnAwake = false;
+        _shootAudioSource.spatialBlend = 0f;
+        _shootAudioSource.volume = shootVolume;
     }
 
     private void GatherPlayerColliders()
@@ -173,7 +206,18 @@ public class VacuumProto : MonoBehaviour
 
     void Update()
     {
-        if (Time.timeScale == 0f) return;
+        if (Time.timeScale == 0f)
+        {
+            StopSuckSound();
+            StopShootLoopSound();
+            return;
+        }
+
+        
+        if (loopShootWhileHeld && !Input.GetMouseButton(0))
+        {
+            StopShootLoopSound();
+        }
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -183,6 +227,8 @@ public class VacuumProto : MonoBehaviour
 
         if (heldBiteObject != null)
         {
+            StopSuckSound();
+
             if (Input.GetMouseButtonDown(1) && Time.time >= nextActionTime)
             {
                 Shoot(0f);
@@ -194,12 +240,61 @@ public class VacuumProto : MonoBehaviour
             if (Input.GetMouseButton(1) && Time.time >= nextActionTime)
             {
                 Suck();
+                PlaySuckSound();
                 if (particouilles != null) particouilles.gameObject.SetActive(true);
             }
             else
             {
+                StopSuckSound();
                 if (particouilles != null) particouilles.gameObject.SetActive(false);
             }
+        }
+    }
+
+    private void PlaySuckSound()
+    {
+        if (_suckAudioSource != null && suckLoopClip != null && !_suckAudioSource.isPlaying)
+        {
+            _suckAudioSource.clip = suckLoopClip;
+            _suckAudioSource.volume = suckVolume;
+            _suckAudioSource.Play();
+        }
+    }
+
+    private void StopSuckSound()
+    {
+        if (_suckAudioSource != null && _suckAudioSource.isPlaying)
+        {
+            _suckAudioSource.Stop();
+        }
+    }
+
+    private void PlayShootSound()
+    {
+        if (_shootAudioSource == null || shootClip == null) return;
+
+        _shootAudioSource.volume = shootVolume;
+        _shootAudioSource.loop = loopShootWhileHeld;
+
+        if (loopShootWhileHeld)
+        {
+            if (!_shootAudioSource.isPlaying)
+            {
+                _shootAudioSource.clip = shootClip;
+                _shootAudioSource.Play();
+            }
+        }
+        else
+        {
+            _shootAudioSource.PlayOneShot(shootClip, shootVolume);
+        }
+    }
+
+    private void StopShootLoopSound()
+    {
+        if (_shootAudioSource != null && _shootAudioSource.isPlaying && _shootAudioSource.loop)
+        {
+            _shootAudioSource.Stop();
         }
     }
 
@@ -348,6 +443,7 @@ public class VacuumProto : MonoBehaviour
         SetIgnorePlayerCollisions(heldBiteColliders, true);
 
         ApplyHeldTransparency(target);
+        StopSuckSound();
 
         nextActionTime = Time.time + actionCooldown;
     }
@@ -383,6 +479,7 @@ public class VacuumProto : MonoBehaviour
             if (appliedForce > 0f)
             {
                 ArmThrownObject(shotBiteObj, shotBiteRb, biteProjectileDamage);
+                PlayShootSound();
             }
 
             if (colsToRestore != null)
@@ -418,11 +515,11 @@ public class VacuumProto : MonoBehaviour
                 ArmThrownObject(obj, rb, suckableProjectileDamage);
             }
 
+            PlayShootSound();
             UpdateInventoryUI();
         }
     }
 
-    
     private void UpdateInventoryUI()
     {
         if (inventoryUIimage == null || inventorySprites == null || inventorySprites.Length == 0) return;
@@ -498,7 +595,7 @@ public class VacuumProto : MonoBehaviour
                 }
             }
         }
-    return false;
+        return false;
     }
 
     private void ApplyHeldTransparency(GameObject target)
@@ -600,6 +697,8 @@ public class VacuumProto : MonoBehaviour
 
     void OnDisable()
     {
+        StopSuckSound();
+        StopShootLoopSound();
         RestoreOriginalMaterials();
     }
 }
