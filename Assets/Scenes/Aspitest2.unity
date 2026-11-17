@@ -484,6 +484,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 209427618821643720, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+      propertyPath: shootVolume
+      value: 0.078
+      objectReference: {fileID: 0}
+    - target: {fileID: 209427618821643720, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
       propertyPath: inventoryUIimage
       value: 
       objectReference: {fileID: 1352710850}
