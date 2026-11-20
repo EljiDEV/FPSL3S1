@@ -615,7 +615,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   _lifeHealAmount: 0.1
   _lifeHealTime: 5
-  DamageUI: {fileID: 0}
+  DamageUI: {fileID: 6410615976983061769, guid: 63b30d363cb94644bb3dc76b9d1fc9c5, type: 3}
   _walkEffectDuration: 0.4
   _walkEffectAmount: 0.05
   _runEffectDuration: 0.6
