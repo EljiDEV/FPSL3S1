@@ -156,7 +156,7 @@ MonoBehaviour:
   _speed: 3
   _targetDistance: 20
   _shootDistance: 15
-  _projectilePrefab: {fileID: 5505855139082968561, guid: a136c140ab9d58247acd102d82cd6d06, type: 3}
+  _projectilePrefab: {fileID: 1605839800193700202, guid: 9651f6a478114f247bba2e1d526d52ae, type: 3}
   _shootCooldown: 0.5
   _shootParticles: {fileID: 8851722826875267773, guid: c61176112cdf87c469cb826c2c7cb4b1, type: 3}
 --- !u!1 &8482547809229604587

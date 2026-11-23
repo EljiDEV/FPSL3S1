@@ -24,13 +24,11 @@ public class GameManager : MonoBehaviour
         
         if (collectiblesContainer == null)
         {
-            Debug.LogError("ATTENTION ! La case 'Collectibles Container' est VIDE dans le GameManager !");
             return; 
         }
 
         if (scoreText == null)
         {
-            Debug.LogError("ATTENTION ! La case 'Score Text' est VIDE dans le GameManager !");
             return; 
         }
 
