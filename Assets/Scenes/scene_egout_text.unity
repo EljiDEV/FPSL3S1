@@ -3932,6 +3932,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 496780785}
   m_SourcePrefab: {fileID: 100100000, guid: ad052a25c8250ff48bddac0a6b8f7d8f, type: 3}
+--- !u!1 &587716385 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5327475112523717815, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
+  m_PrefabInstance: {fileID: 716721163}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &589162273
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4716,6 +4721,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ed6b37626b5d08a4c87fc3b397534c93, type: 3}
   m_PrefabInstance: {fileID: 926865798}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &679853012
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 679853014}
+  - component: {fileID: 679853013}
+  m_Layer: 0
+  m_Name: _Scripts
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &679853013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679853012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19d075f17e97e844a9c629b5b5897e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainGame
+  Player: {fileID: 587716385}
+--- !u!4 &679853014
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679853012}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.41326, y: 5.5146, z: 5.92596}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &698431513
 GameObject:
   m_ObjectHideFlags: 0
@@ -4923,7 +4973,7 @@ PrefabInstance:
     - target: {fileID: 209427618821643720, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
       propertyPath: inventoryUIimage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 357001813}
     - target: {fileID: 226712037594249591, guid: a1bb7acafb2293f47be220af650c2686, type: 3}
       propertyPath: DamageUI
       value: 
@@ -41563,3 +41613,4 @@ SceneRoots:
   - {fileID: 1007547173}
   - {fileID: 2693272429739004917}
   - {fileID: 154039145}
+  - {fileID: 679853014}
